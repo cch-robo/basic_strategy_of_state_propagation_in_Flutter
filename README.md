@@ -7,10 +7,15 @@ JA Room 6 － 2019/02/08 17:40-18:10
 FlutterでのWidgetツリーへの状態伝播とアクセス制限の基本戦略 のサンプルソースです。
 
 
-## サンプルアプリについて
+## サンプルソースについて
 
 Flutterの Hello World であるカウンタアプリを例にして、
-基本ウィジェットやメソッドのみを使った、アプリ全体での情報やロジックの共有とアクセスの制限のサンプルソースを実行するアプリです。
+基本ウィジェットやメソッドのみを使った、アプリ全体での情報やロジックの共有とアクセスの制限のサンプルソースです。
+
+_初学者が対象ですので、BLOCなど応用技術の説明ではありません。_
+- 基本ウィジェット：StatelessWidget, StatefulWidget, InheritedWidget
+
+## サンプルアプリについて
 
 サンプルソースでは、ビルドフローの変化を Android Studio などのログ出力で確認できるよう、
 Scaffold や Text ウィジェットなどをラップした MyScaffold や MyText ウィジェットを使っていることに留意ください。
@@ -18,5 +23,3 @@ Scaffold や Text ウィジェットなどをラップした MyScaffold や MyTe
 - サンプルソース選択画面＆実行画面  
 <img src="doc/sample_app_image.png" width="600px" border="1" />
 
-_初学者が対象ですので、BLOCなど応用技術の説明ではありません。_
-- 基本ウィジェット：StatelessWidget, StatefulWidget, InheritedWidget
