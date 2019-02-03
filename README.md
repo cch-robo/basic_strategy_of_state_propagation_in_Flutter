@@ -15,11 +15,8 @@ Flutterの Hello World であるカウンタアプリを例にして、
 サンプルソースでは、ビルドフローの変化を Android Studio などのログ出力で確認できるよう、
 Scaffold や Text ウィジェットなどをラップした MyScaffold や MyText ウィジェットを使っていることに留意ください。
 
-- ラウンチャー (サンプルソース選択画面)  
-<img src="doc/sample_app_image_1.png" width="380px" border="1" />
-
-− サンプルソース実行画面 (state on page transition)  
-<img src="doc/sample_app_image_2.png" width="380px" border="1" />
+- サンプルソース選択画面＆実行画面  
+<img src="doc/sample_app_image.png" width="600px" border="1" />
 
 _初学者が対象ですので、BLOCなど応用技術の説明ではありません。_
 - 基本ウィジェット：StatelessWidget, StatefulWidget, InheritedWidget
