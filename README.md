@@ -1,16 +1,19 @@
-# basic_of_state_propagation
+# Basic Strategy of State Propagation and Access Restriction in Flutter
 
-&#x27;Basic Strategy of State Propagation and Access Restriction&#x27; reference app
+[DroidKaigi 2019](https://droidkaigi.jp/2019/timetable/70887)  
+DAY.02 (Feb 8th, 2019)  
+JA Room 6 － 2019/02/08 17:40-18:10  
+初心者歓迎 クロスプラットフォーム  
+FlutterでのWidgetツリーへの状態伝播とアクセス制限の基本戦略 のサンプルソースです。
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## サンプルアプリについて
 
-A few resources to get you started if this is your first Flutter project:
+Flutterの Hello World であるカウンタアプリを例にして、
+基本ウィジェットやメソッドのみを使った、アプリ全体での情報やロジックの共有とアクセスの制限のサンプルソースを実行するアプリです。
 
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
+サンプルソースでは、ビルドフローの変化を Android Studio などのログ出力で確認できるよう、
+Scaffold や Text ウィジェットなどをラップした MyScaffold や MyText ウィジェットを使っていることに留意ください。
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+_初学者が対象ですので、BLOCなど応用技術の説明ではありません。_
+- 基本ウィジェット：StatelessWidget, StatefulWidget, InheritedWidget
