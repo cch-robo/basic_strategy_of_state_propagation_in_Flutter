@@ -109,10 +109,6 @@ class _NavigatorPushPageState extends State<NavigatorPushPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           logic.incrementCounter();
-          /*
-          // Scaffold Elementの全ツリー構造のデバッグ出力
-          logic.debugChildElements();
-          */
         },
         tooltip: 'Increment',
         child: Icon(Icons.add),
@@ -279,10 +275,6 @@ class _NavigatorPopPageState extends State<NavigatorPopPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           logic.incrementCounter();
-          /*
-          // Scaffold Elementの全ツリー構造のデバッグ出力
-          logic.debugChildElements();
-          */
         },
         tooltip: 'Increment',
         child: Icon(Icons.add),
