@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:basic_of_state_propagation/src/base/log_widgets.dart';
 import 'package:basic_of_state_propagation/main.dart' as launcher;
 
-void main() => runApp(MyApp());
+void main() => runApp(
+                  MyAppInheritedWidget(
+                    child: MyApp()
+                  )
+                );
 
 class MyApp extends MyStatelessWidget {
 
@@ -14,13 +18,13 @@ class MyApp extends MyStatelessWidget {
   Widget build(BuildContext context) {
     debugPrint("$name#build(context:${context.hashCode})  instance=${this.hashCode}");
     return
-      MyAppInheritedWidget(
-        child: MaterialApp(
-          title: 'Basic Strategy of State Propagation',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          home: MyPage1InheritedWidget(child: MyNavigatorPushPage()),
+      MaterialApp(
+        title: 'Basic Strategy of State Propagation',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: MyPage1InheritedWidget(
+          child: MyNavigatorPushPage(),
         ),
       );
   }
