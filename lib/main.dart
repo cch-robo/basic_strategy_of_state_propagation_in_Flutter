@@ -19,6 +19,7 @@ import 'package:basic_of_state_propagation/src/state_hold_on_page_transition.dar
 
 import 'package:basic_of_state_propagation/src/final_version.dart' as final_version;
 import 'package:basic_of_state_propagation/src/lifecycle_observer.dart' as lifecycle_observer;
+import 'package:basic_of_state_propagation/src/strategy_of_state_propagation.dart' as state_propagation;
 
 
 void main() => runApp(MyApp());
@@ -177,6 +178,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Container(child: Text('final version'), width: 200),
                 onPressed: () {
                   final_version.main();
+                },
+              ),
+
+              RaisedButton(
+                color: Colors.white,
+                child: Container(child: Text('State Propagation'), width: 200),
+                onPressed: () {
+                  state_propagation.main();
                 },
               ),
 
