@@ -53,9 +53,9 @@ class _MyHomePageState extends MyState<MyHomePage> {
     myScaffoldElement.debugChildElements();
     */
 
-    debugPrint(" \n$name  _incrementCounter, name=${widget.name}, widget=${widget.hashCode}:${widget.runtimeType.toString()}, _counter=${MyHomePageInheritedWidget.getLogic(context).counter}");
+    debugPrint(" \n$name  _incrementCounter, name=${widget.name}, widget=${widget.hashCode}:${widget.runtimeType.toString()}, _counter=${MyHomePageInheritedWidget.of(context).logic.counter}");
     setState(() {
-      MyHomePageInheritedWidget.getLogic(context).increment();
+      MyHomePageInheritedWidget.of(context).logic.increment();
     });
   }
 
@@ -153,10 +153,7 @@ class MyHomePageInheritedWidget extends MyLogicInheritedWidget {
     return context.inheritFromWidgetOfExactType(MyHomePageInheritedWidget);
   }
 
-  /// MyHomePageのロジックを取得
-  static MyPageLogic getLogic(BuildContext context) {
-    return MyHomePageInheritedWidget.of(context)._myHomePageLogic;
-  }
+  MyPageLogic get logic => _myHomePageLogic;
 
   // MyHomePageのロジック
   final _myHomePageLogic = new MyPageLogic();
@@ -233,7 +230,7 @@ class MyCounterStatelessComponent<T> extends MyStatelessWidget {
           padding: EdgeInsets.all(10.0),
 
           child: MyText(
-            '${MyHomePageInheritedWidget.getLogic(context).counter}',
+            '${MyHomePageInheritedWidget.of(context).logic.counter}',
             name: "counterMyText",
             style: Theme.of(context).textTheme.display1,
           ),
@@ -337,7 +334,7 @@ class MyCounterStatefulComponentState extends MyState<MyCounterStatefulComponent
           padding: EdgeInsets.all(10.0),
 
           child: MyText(
-            '${MyHomePageInheritedWidget.getLogic(context).counter}',
+            '${MyHomePageInheritedWidget.of(context).logic.counter}',
             name: "counterMyText",
             style: Theme.of(context).textTheme.display1,
           ),

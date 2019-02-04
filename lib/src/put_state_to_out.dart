@@ -53,9 +53,9 @@ class _MyHomePageState extends MyState<MyHomePage> {
     myScaffoldElement.debugChildElements();
     */
 
-    debugPrint(" \n$name  _incrementCounter, name=${widget.name}, widget=${widget.hashCode}:${widget.runtimeType.toString()}, _counter=${MyHomePageInheritedWidget.getLogic(context).counter}");
+    debugPrint(" \n$name  _incrementCounter, name=${widget.name}, widget=${widget.hashCode}:${widget.runtimeType.toString()}, _counter=${MyHomePageInheritedWidget.of(context).logic.counter}");
     setState(() {
-      MyHomePageInheritedWidget.getLogic(context).increment();
+      MyHomePageInheritedWidget.of(context).logic.increment();
     });
   }
 
@@ -86,7 +86,9 @@ class _MyHomePageState extends MyState<MyHomePage> {
             MyLabelStatelessComponent(),
 
             // カウンター表示部のコンポーネント
-            MyCounterStatelessComponent(parameter: MyHomePageInheritedWidget.getLogic(context).counter,),
+            MyCounterStatelessComponent(
+              parameter: MyHomePageInheritedWidget.of(context).logic.counter,
+            ),
 
           ],
         ),
@@ -153,10 +155,8 @@ class MyHomePageInheritedWidget extends MyLogicInheritedWidget {
     return context.inheritFromWidgetOfExactType(MyHomePageInheritedWidget);
   }
 
-  /// MyHomePageのロジックを取得
-  static MyPageLogic getLogic(BuildContext context) {
-    return MyHomePageInheritedWidget.of(context)._myHomePageLogic;
-  }
+
+  MyPageLogic get logic =>_myHomePageLogic;
 
   // MyHomePageのロジック
   final _myHomePageLogic = new MyPageLogic();
