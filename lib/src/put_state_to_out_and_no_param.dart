@@ -18,7 +18,7 @@ class MyApp extends MyStatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePageInheritedWidget(child: MyHomePage(title: 'put state to out and no parameter')),
+      home: MyHomePageInheritedWidget(child: MyHomePage(title: 'put state to out and no param')),
     );
   }
 }
