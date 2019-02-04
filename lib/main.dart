@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:basic_of_state_propagation/src/normal_widget_build_flow.dart' as normal_widget_build_flow;
 import 'package:basic_of_state_propagation/src/cacheable_widget_build.dart' as cacheable_widget_build;
 import 'package:basic_of_state_propagation/src/rebuildable_widget_build.dart' as rebuildable_widget_build;
+
+import 'package:basic_of_state_propagation/src/move_keyless_widget.dart' as move_keyless_widget;
+import 'package:basic_of_state_propagation/src/move_keyed_widget.dart' as move_keyed_widget;
+
 import 'package:basic_of_state_propagation/src/use_right_context.dart' as use_right_context;
 
 import 'package:basic_of_state_propagation/src/deep_nested_widget_tree.dart' as deep_nested_widget_tree;
 import 'package:basic_of_state_propagation/src/build_splited_by_method.dart' as build_splited_by_method;
 import 'package:basic_of_state_propagation/src/build_divided_by_component.dart' as build_divided_by_component;
-
-import 'package:basic_of_state_propagation/src/move_keyless_widget.dart' as move_keyless_widget;
-import 'package:basic_of_state_propagation/src/move_keyed_widget.dart' as move_keyed_widget;
+import 'package:basic_of_state_propagation/src/put_state_to_out.dart' as put_state_to_out;
 
 import 'package:basic_of_state_propagation/src/state_on_page_transition.dart' as state_on_page_transition;
 import 'package:basic_of_state_propagation/src/state_hold_on_page_transition.dart' as state_hold_on_page_transition;
@@ -91,6 +93,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
               RaisedButton(
                 color: Colors.white,
+                child: Container(child: Text('move keyless widget'), width: 200),
+                onPressed: () {
+                  move_keyless_widget.main();
+                },
+              ),
+
+              RaisedButton(
+                color: Colors.white,
+                child: Container(child: Text('move keyed widget'), width: 200),
+                onPressed: () {
+                  move_keyed_widget.main();
+                },
+              ),
+
+              RaisedButton(
+                color: Colors.white,
                 child: Container(child: Text('use right context'), width: 200),
                 onPressed: () {
                   use_right_context.main();
@@ -123,17 +141,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
               RaisedButton(
                 color: Colors.white,
-                child: Container(child: Text('move keyless widget'), width: 200),
+                child: Container(child: Text('put state to out'), width: 200),
                 onPressed: () {
-                  move_keyless_widget.main();
-                },
-              ),
-
-              RaisedButton(
-                color: Colors.white,
-                child: Container(child: Text('move keyed widget'), width: 200),
-                onPressed: () {
-                  move_keyed_widget.main();
+                  put_state_to_out.main();
                 },
               ),
 
