@@ -12,6 +12,7 @@ import 'package:basic_of_state_propagation/src/deep_nested_widget_tree.dart' as 
 import 'package:basic_of_state_propagation/src/build_splited_by_method.dart' as build_splited_by_method;
 import 'package:basic_of_state_propagation/src/build_divided_by_component.dart' as build_divided_by_component;
 import 'package:basic_of_state_propagation/src/put_state_to_out.dart' as put_state_to_out;
+import 'package:basic_of_state_propagation/src/put_state_to_out_and_no_param.dart' as put_state_to_out_and_no_param;
 
 import 'package:basic_of_state_propagation/src/state_on_page_transition.dart' as state_on_page_transition;
 import 'package:basic_of_state_propagation/src/state_hold_on_page_transition.dart' as state_hold_on_page_transition;
@@ -144,6 +145,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Container(child: Text('put state to out'), width: 200),
                 onPressed: () {
                   put_state_to_out.main();
+                },
+              ),
+
+              RaisedButton(
+                color: Colors.white,
+                child: Container(child: Text('put state to out and no param'), width: 200),
+                onPressed: () {
+                  put_state_to_out_and_no_param.main();
                 },
               ),
 
