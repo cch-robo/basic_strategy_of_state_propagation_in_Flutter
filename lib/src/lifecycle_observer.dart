@@ -409,8 +409,6 @@ class MyAppInheritedWidget extends MyLogicInheritedWidget {
     return appLogic.checkPermission(context, MyPage3InheritedWidget) ? appLogic._page3Logic : null;
   }
 
-  // 簡便化のため、このクラスに直接 アプリ全体の state や logic を記述しています。
-
   // ページ１〜３のロジック
   final _page1Logic = new MyPageLogic(name: "MyPageLogic[#1]");
   final _page2Logic = new MyPageLogic(name: "MyPageLogic[#2]");
