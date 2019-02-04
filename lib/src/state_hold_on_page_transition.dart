@@ -488,14 +488,12 @@ class MyPage3InheritedWidget extends MyLogicInheritedWidget {
 /// ラベル表示部のコンポーネント (StatelessWidget)
 class MyLabelStatelessComponent<T> extends MyStatelessWidget {
   final T parameter;
-  final  BuildContext ownerContext;
   final Color outerColor;
   final Color innerColor;
   final String indexLabel;
 
   MyLabelStatelessComponent({
     this.parameter,
-    this.ownerContext,
     @required this.outerColor,
     @required this.innerColor,
     String name,
