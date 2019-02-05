@@ -38,6 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
   _MyHomePageState() : super();
 
   void _incrementCounter() {
+    debugPrint(" \n_incrementCounter, widget=${widget.hashCode}:${widget.runtimeType.toString()}, _counter=${MyHomePageInheritedWidget.of(context).logic.counter}");
     setState(() {
       MyHomePageInheritedWidget.of(context).logic.increment();
     });
