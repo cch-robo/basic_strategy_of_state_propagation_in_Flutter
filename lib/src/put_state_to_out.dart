@@ -121,7 +121,7 @@ class PageLogic {
 /// MyHomePageの Business Logic を提供するコンポーネント
 class MyHomePageInheritedWidget extends LogicInheritedWidget {
 
-  final String message = "this is Page1InheritedWidget's message.";
+  final String message = "this is MyHomePageInheritedWidget's message.";
 
   MyHomePageInheritedWidget({
     Key key,
