@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:basic_of_state_propagation/src/base/log_widgets.dart';
 import 'package:basic_of_state_propagation/main.dart' as launcher;
 
 void main() => runApp(MyApp());
 
-class MyApp extends MyStatelessWidget {
+class MyApp extends StatelessWidget {
 
-  MyApp({ Key key, String name = "MyApp" })
-      : super(name: name, key: key);
+  MyApp({ Key key })
+      : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    debugPrint("$name#build(context:${context.hashCode})  instance=${this.hashCode}");
     return MaterialApp(
       title: 'Basic Strategy of State Propagation',
       theme: ThemeData(
@@ -23,37 +21,23 @@ class MyApp extends MyStatelessWidget {
   }
 }
 
-class MyHomePage extends MyStatefulWidget {
-  MyHomePage({String name = "MyHomePage", Key key, this.title})
-      : super(name: name, key: key);
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title})
+      : super(key: key);
 
   final String title;
 
   @override
   _MyHomePageState createState() {
-    debugPrint("$name#createState()  instance=${this.hashCode}");
-    return createStateHolder(
-        _MyHomePageState(name: "$name:State"));
+    return _MyHomePageState();
   }
 }
 
-class _MyHomePageState extends MyState<MyHomePage> {
-  final GlobalKey<MyScaffoldState> myScaffoldGlobalKey = GlobalKey();
-  MyStatefulElement myScaffoldElement;
+class _MyHomePageState extends State<MyHomePage> {
 
-  _MyHomePageState({String name}) : super(name: name);
+  _MyHomePageState() : super();
 
   void _incrementCounter() {
-    /*
-    // Scaffold Elementの全ツリー構造のデバッグ出力
-    if (myScaffoldElement == null) {
-      myScaffoldElement = (myScaffoldGlobalKey.currentWidget as MyScaffold).elementHolder.object;
-    }
-    debugPrint(" \ndebugChildElements()");
-    myScaffoldElement.debugChildElements();
-    */
-
-    debugPrint(" \n$name  _incrementCounter, name=${widget.name}, widget=${widget.hashCode}:${widget.runtimeType.toString()}, _counter=${MyHomePageInheritedWidget.of(context).logic.counter}");
     setState(() {
       MyHomePageInheritedWidget.of(context).logic.increment();
     });
@@ -61,11 +45,8 @@ class _MyHomePageState extends MyState<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("$name#build(context:${context.hashCode})  instance=${this.hashCode}, widget=${widget.hashCode}:${widget.runtimeType.toString()}");
-    // MyWidgetを使った、Widget Tree ビルドフローログ出力
 
-    return MyScaffold(
-      key: myScaffoldGlobalKey,
+    return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
         actions: <Widget>[
@@ -76,17 +57,17 @@ class _MyHomePageState extends MyState<MyHomePage> {
         ]
       ),
 
-      body: MyContainer(
+      body: Container(
         alignment: Alignment.center,
-        child: MyColumn(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
 
             // ラベル表示部のコンポーネント
-            MyLabelStatelessComponent(),
+            LabelStatelessComponent(),
 
             // カウンター表示部のコンポーネント
-            MyCounterStatelessComponent(
+            CounterStatelessComponent(
               parameter: MyHomePageInheritedWidget.of(context).logic.counter,
             ),
 
@@ -94,7 +75,7 @@ class _MyHomePageState extends MyState<MyHomePage> {
         ),
       ),
 
-      floatingActionButton: MyFloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: Icon(Icons.add),
@@ -106,27 +87,24 @@ class _MyHomePageState extends MyState<MyHomePage> {
 
 
 /// Business Logic 提供の抽象コンポーネント
-abstract class MyLogicInheritedWidget extends MyInheritedWidget {
+abstract class LogicInheritedWidget extends InheritedWidget {
 
-  MyLogicInheritedWidget({
-    String name = "MyLogicInheritedWidget",
+  LogicInheritedWidget({
     Key key,
     Widget child
-  }) :  super(name: name, key: key, child: child);
+  }) :  super(key: key, child: child);
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) {
-    super.updateShouldNotify(oldWidget);
-    // 更新が発生した場合は、再構築するとします。
     return true;
   }
 }
 
 /// MyHomePageのロジッククラス
-class MyPageLogic {
+class PageLogic {
   int _counter;
 
-  MyPageLogic() {
+  PageLogic() {
     clear();
   }
 
@@ -140,15 +118,14 @@ class MyPageLogic {
 }
 
 /// MyHomePageの Business Logic を提供するコンポーネント
-class MyHomePageInheritedWidget extends MyLogicInheritedWidget {
+class MyHomePageInheritedWidget extends LogicInheritedWidget {
 
   final String message = "this is MyPage1InheritedWidget's message.";
 
   MyHomePageInheritedWidget({
-    String name = "MyPage1InheritedWidget",
     Key key,
     Widget child
-  }) : super(name: name, key: key, child: child);
+  }) : super(key: key, child: child);
 
   /// MyHomePageのコンポーネントを取得
   static MyHomePageInheritedWidget of(BuildContext context) {
@@ -156,47 +133,42 @@ class MyHomePageInheritedWidget extends MyLogicInheritedWidget {
   }
 
 
-  MyPageLogic get logic =>_myHomePageLogic;
+  PageLogic get logic =>_myHomePageLogic;
 
   // MyHomePageのロジック
-  final _myHomePageLogic = new MyPageLogic();
+  final _myHomePageLogic = new PageLogic();
 }
 
 
 /// ラベル表示部のコンポーネント (StatelessWidget)
-class MyLabelStatelessComponent<T> extends MyStatelessWidget {
+class LabelStatelessComponent<T> extends StatelessWidget {
   final T parameter;
   final Color outerColor;
   final Color innerColor;
 
-  MyLabelStatelessComponent({
+  LabelStatelessComponent({
     this.parameter,
     this.outerColor = Colors.green,
     this.innerColor = Colors.lightGreen,
-    String name = "MyLabelComponent",
     Key key,
-  }) :  super(name: name, key: key);
+  }) :  super(key: key);
 
   Widget build(BuildContext context) {
-    debugPrint("$name#build(context:${context.hashCode})  instance=${this.hashCode}");
 
     return
-      MyContainer(
-        name: "labelOuterMyContainer",
+      Container(
         color: outerColor,
         alignment: Alignment.center,
         margin: EdgeInsets.all(10.0),
         padding: EdgeInsets.all(10.0),
 
-        child: MyContainer(
-          name: "labelMyContainer",
+        child: Container(
           color: innerColor,
           alignment: Alignment.center,
           padding: EdgeInsets.all(20.0),
 
-          child: MyText(
+          child: Text(
             'You have pushed the button this many times:',
-            name: "labelMyText",
           ),
 
         ),
@@ -206,39 +178,34 @@ class MyLabelStatelessComponent<T> extends MyStatelessWidget {
 }
 
 /// カウンター表示部のコンポーネント (StatelessWidget)
-class MyCounterStatelessComponent<T> extends MyStatelessWidget {
+class CounterStatelessComponent<T> extends StatelessWidget {
   final T parameter;
   final Color outerColor;
   final Color innerColor;
 
-  MyCounterStatelessComponent({
+  CounterStatelessComponent({
     this.parameter,
     this.outerColor = Colors.blue,
     this.innerColor = Colors.lightBlue,
-    String name = "MyCounterComponent",
     Key key,
-  }) :  super(name: name, key: key);
+  }) :  super(key: key);
 
   Widget build(BuildContext context) {
-    debugPrint("$name#build(context:${context.hashCode})  instance=${this.hashCode}");
 
     return
-      MyContainer(
-        name: "counterOuterMyContainer",
+      Container(
         color: outerColor,
         alignment: Alignment.center,
         margin: EdgeInsets.all(10.0),
         padding: EdgeInsets.all(10.0),
 
-        child: MyContainer(
-          name: "counterMyContainer",
+        child: Container(
           color: innerColor,
           alignment: Alignment.center,
           padding: EdgeInsets.all(10.0),
 
-          child: MyText(
+          child: Text(
             '$parameter',
-            name: "counterMyText",
             style: Theme.of(context).textTheme.display1,
           ),
 
@@ -250,50 +217,43 @@ class MyCounterStatelessComponent<T> extends MyStatelessWidget {
 
 
 /// ラベル表示部のコンポーネント (StatefulWidget)
-class MyLabelStatefulComponent<T> extends MyStatefulWidget {
+class LabelStatefulComponent<T> extends StatefulWidget {
   final T parameter;
   final Color outerColor;
   final Color innerColor;
 
-  MyLabelStatefulComponent({
+  LabelStatefulComponent({
     this.parameter,
     this.outerColor = Colors.green,
     this.innerColor = Colors.lightGreen,
-    String name = "MyLabelComponent",
     Key key,
-  }) : super(name: name, key: key);
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    debugPrint("$name#createState()  instance=${this.hashCode}");
-    return createStateHolder(
-        new MyLabelStatefulComponentState(name: "$name:State"));
+    return LabelStatefulComponentState();
   }
 }
-class MyLabelStatefulComponentState extends MyState<MyLabelStatefulComponent> {
+class LabelStatefulComponentState extends State<LabelStatefulComponent> {
 
-  MyLabelStatefulComponentState({String name}) : super(name: name);
+  LabelStatefulComponentState() : super();
 
   Widget build(BuildContext context) {
-    debugPrint("$name#build(context:${context.hashCode})  instance=${this.hashCode}, widget=${widget.hashCode}:${widget.runtimeType.toString()}");
 
     return
-      MyContainer(
-        name: "labelOuterMyContainer",
+      Container(
         color: widget.outerColor,
         alignment: Alignment.center,
         margin: EdgeInsets.all(10.0),
         padding: EdgeInsets.all(10.0),
 
-        child: MyContainer(
-          name: "labelMyContainer",
+        child: Container(
           color: widget.innerColor,
           alignment: Alignment.center,
           padding: EdgeInsets.all(20.0),
 
-          child: MyText(
+          child: Text(
             'You have pushed the button this many times:',
-            name: "labelMyText",
           ),
 
         ),
@@ -303,50 +263,43 @@ class MyLabelStatefulComponentState extends MyState<MyLabelStatefulComponent> {
 }
 
 /// カウンター表示部のコンポーネント (StatefulWidget)
-class MyCounterStatefulComponent<T> extends MyStatefulWidget {
+class CounterStatefulComponent<T> extends StatefulWidget {
   final T parameter;
   final Color outerColor;
   final Color innerColor;
 
-  MyCounterStatefulComponent({
+  CounterStatefulComponent({
     this.parameter,
     this.outerColor = Colors.blue,
     this.innerColor = Colors.lightBlue,
-    String name = "MyCounterComponent",
     Key key,
-  }) : super(name: name, key: key);
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    debugPrint("$name#createState()  instance=${this.hashCode}");
-    return createStateHolder(
-        new MyCounterStatefulComponentState(name: "$name:State"));
+    return CounterStatefulComponentState();
   }
 }
-class MyCounterStatefulComponentState extends MyState<MyCounterStatefulComponent> {
+class CounterStatefulComponentState extends State<CounterStatefulComponent> {
 
-  MyCounterStatefulComponentState({String name}) : super(name: name);
+  CounterStatefulComponentState() : super();
 
   Widget build(BuildContext context) {
-    debugPrint("$name#build(context:${context.hashCode})  instance=${this.hashCode}, widget=${widget.hashCode}:${widget.runtimeType.toString()}");
 
     return
-      MyContainer(
-        name: "counterOuterMyContainer",
+      Container(
         color: widget.outerColor,
         alignment: Alignment.center,
         margin: EdgeInsets.all(10.0),
         padding: EdgeInsets.all(10.0),
 
-        child: MyContainer(
-          name: "counterMyContainer",
+        child: Container(
           color: widget.innerColor,
           alignment: Alignment.center,
           padding: EdgeInsets.all(10.0),
 
-          child: MyText(
+          child: Text(
             '${widget.parameter}',
-            name: "counterMyText",
             style: Theme.of(context).textTheme.display1,
           ),
 
