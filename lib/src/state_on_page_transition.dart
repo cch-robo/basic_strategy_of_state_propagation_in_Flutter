@@ -41,7 +41,7 @@ class _NavigatorPushPageState extends State<NavigatorPushPage> {
   _NavigatorPushPageState() : super();
 
   void _incrementCounter() {
-    debugPrint(" \n_incrementCounter, widget=${widget.hashCode}:${widget.runtimeType.toString()}, _counter=$_counter");
+    debugPrint(" \nNavigatorPushPage  _incrementCounter, widget=${widget.hashCode}:${widget.runtimeType.toString()}, _counter=$_counter");
     setState(() {
       _counter++;
     });
@@ -125,7 +125,7 @@ class _NavigatorPushPopPageState extends State<NavigatorPushPopPage> {
   _NavigatorPushPopPageState() : super();
 
   void _incrementCounter() {
-    debugPrint(" \n_incrementCounter, widget=${widget.hashCode}:${widget.runtimeType.toString()}, _counter=$_counter");
+    debugPrint(" \nNavigatorPushPopPage  _incrementCounter, widget=${widget.hashCode}:${widget.runtimeType.toString()}, _counter=$_counter");
     setState(() {
       _counter++;
     });
@@ -212,7 +212,7 @@ class _NavigatorPopPageState extends State<NavigatorPopPage> {
   _NavigatorPopPageState() : super();
 
   void _incrementCounter() {
-    debugPrint(" \n_incrementCounter, widget=${widget.hashCode}:${widget.runtimeType.toString()}, _counter=$_counter");
+    debugPrint(" \nNavigatorPopPage  _incrementCounter, widget=${widget.hashCode}:${widget.runtimeType.toString()}, _counter=$_counter");
     setState(() {
       _counter++;
     });
