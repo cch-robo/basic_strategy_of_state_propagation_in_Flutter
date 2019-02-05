@@ -332,9 +332,9 @@ class AppInheritedWidget extends LogicInheritedWidget {
   }
 
   // ページ１〜３のロジック
-  final _page1Logic = new PageLogic(name: "MyPageLogic[#1]");
-  final _page2Logic = new PageLogic(name: "MyPageLogic[#2]");
-  final _page3Logic = new PageLogic(name: "MyPageLogic[#3]");
+  final _page1Logic = new PageLogic(name: "PageLogic[#1]");
+  final _page2Logic = new PageLogic(name: "PageLogic[#2]");
+  final _page3Logic = new PageLogic(name: "PageLogic[#3]");
 
   /// 指定クラスのインスタンス(継承物は除外)が、context に含まれるか否かを返します。
   bool checkPermission(BuildContext context, Type targetType) {
