@@ -1,62 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:basic_of_state_propagation/src/base/log_widgets.dart';
 import 'package:basic_of_state_propagation/main.dart' as launcher;
 
 void main() => runApp(MyApp());
 
-class MyApp extends MyStatelessWidget {
+class MyApp extends StatelessWidget {
 
-  MyApp({ Key key, String name = "MyApp" })
-      : super(name: name, key: key);
+  MyApp({ Key key, String })
+      : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    debugPrint("$name#build(context:${context.hashCode})  instance=${this.hashCode}");
     return MaterialApp(
       title: 'Basic Strategy of State Propagation',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyNavigatorPushPage(),
+      home: NavigatorPushPage(),
     );
   }
 }
 
 
 /// 第１のページ
-class MyNavigatorPushPage extends MyStatefulWidget {
-  MyNavigatorPushPage({String name, Key key, this.title = "Navigator Page#1"})
-      : super(name: "MyNavigatorPushPage[#1]", key: key);
+class NavigatorPushPage extends StatefulWidget {
+  NavigatorPushPage({Key key, this.title = "Navigator Page#1"})
+      : super(key: key);
 
   final String title;
 
   @override
-  _MyNavigatorPushPageState createState() {
-    debugPrint("$name#createState()  instance=${this.hashCode}");
-    return createStateHolder(
-        _MyNavigatorPushPageState(name: "$name:State"));
+  _NavigatorPushPageState createState() {
+    return _NavigatorPushPageState();
   }
 }
 
-class _MyNavigatorPushPageState extends MyState<MyNavigatorPushPage> {
+class _NavigatorPushPageState extends State<NavigatorPushPage> {
   int _counter = 0;
-  final GlobalKey<MyScaffoldState> myScaffoldGlobalKey = GlobalKey();
-  MyStatefulElement myScaffoldElement;
 
-  _MyNavigatorPushPageState({String name}) : super(name: name);
+  _NavigatorPushPageState() : super();
 
   void _incrementCounter() {
-    /*
-    // Scaffold Elementの全ツリー構造のデバッグ出力
-    if (myScaffoldElement == null) {
-      myScaffoldElement = (myScaffoldGlobalKey.currentWidget as MyScaffold).elementHolder.object;
-    }
-    debugPrint(" \ndebugChildElements()");
-    myScaffoldElement.debugChildElements();
-    */
-
-    debugPrint(" \n$name  _incrementCounter, name=${widget.name}, widget=${widget.hashCode}:${widget.runtimeType.toString()}, _counter=$_counter");
+    debugPrint(" \n_incrementCounter, widget=${widget.hashCode}:${widget.runtimeType.toString()}, _counter=$_counter");
     setState(() {
       _counter++;
     });
@@ -64,12 +49,8 @@ class _MyNavigatorPushPageState extends MyState<MyNavigatorPushPage> {
 
   @override
   Widget build(BuildContext context) {
-    // MyWidgetを使った、Widget Tree ビルドフローログ出力
-    debugPrint("$name#build(context:${context.hashCode})  instance=${this.hashCode}, widget=${widget.hashCode}:${widget.runtimeType.toString()}");
 
-    return MyScaffold(
-      key: myScaffoldGlobalKey,
-      name: "MyScaffold[#1]",
+    return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
         actions: <Widget>[
@@ -80,33 +61,30 @@ class _MyNavigatorPushPageState extends MyState<MyNavigatorPushPage> {
         ]
       ),
 
-      body: MyContainer(
-        name: "MyContainer[#1]",
+      body: Container(
         alignment: Alignment.center,
-        child: MyColumn(
-          name: "MyColumn[#1]",
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
 
             // ラベル表示部のコンポーネント
-            MyLabelStatelessComponent(name: "[#1]",
+            LabelStatelessComponent(
                 outerColor: Colors.green, innerColor: Colors.lightGreen),
 
             // カウンター表示部のコンポーネント
-            MyCounterStatelessComponent(name: "[#1]", parameter: _counter,
+            CounterStatelessComponent(
+                parameter: _counter,
                 outerColor: Colors.blue, innerColor: Colors.lightBlue),
 
-            MyRaisedButton(
-              name: "pushMyRaisedButton[#1]",
+            RaisedButton(
               color: Colors.lightGreenAccent,
               onPressed: () {
-                debugPrint(" \nMyNavigatorPushPage#1  push to#2");
                 // Navigator．push() 時には、次ページの生成と現ページを含む全ての前ページの再buildが行われます。
                 Navigator.push(
                   context,
                   MaterialPageRoute<void>(
                       builder: (BuildContext context) {
-                        return MyNavigatorPushPopPage();
+                        return NavigatorPushPopPage();
                       }
                   ),
                 );
@@ -118,8 +96,7 @@ class _MyNavigatorPushPageState extends MyState<MyNavigatorPushPage> {
         ),
       ),
 
-      floatingActionButton: MyFloatingActionButton(
-        name: "MyFAB[#1]",
+      floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: Icon(Icons.add),
@@ -130,38 +107,25 @@ class _MyNavigatorPushPageState extends MyState<MyNavigatorPushPage> {
 
 
 /// 第２のページ
-class MyNavigatorPushPopPage extends MyStatefulWidget {
-  MyNavigatorPushPopPage({String name, Key key, this.title: "Navigator Page#2"})
-      : super(name: "MyNavigatorPushPopPage[#2]", key: key);
+class NavigatorPushPopPage extends StatefulWidget {
+  NavigatorPushPopPage({Key key, this.title: "Navigator Page#2"})
+      : super(key: key);
 
   final String title;
 
   @override
-  _MyNavigatorPushPopPageState createState() {
-    debugPrint("$name#createState()  instance=${this.hashCode}");
-    return createStateHolder(
-        _MyNavigatorPushPopPageState(name: "$name:State"));
+  _NavigatorPushPopPageState createState() {
+    return _NavigatorPushPopPageState();
   }
 }
 
-class _MyNavigatorPushPopPageState extends MyState<MyNavigatorPushPopPage> {
+class _NavigatorPushPopPageState extends State<NavigatorPushPopPage> {
   int _counter = 0;
-  final GlobalKey<MyScaffoldState> myScaffoldGlobalKey = GlobalKey();
-  MyStatefulElement myScaffoldElement;
 
-  _MyNavigatorPushPopPageState({String name}) : super(name: name);
+  _NavigatorPushPopPageState() : super();
 
   void _incrementCounter() {
-    /*
-    // Scaffold Elementの全ツリー構造のデバッグ出力
-    if (myScaffoldElement == null) {
-      myScaffoldElement = (myScaffoldGlobalKey.currentWidget as MyScaffold).elementHolder.object;
-    }
-    debugPrint(" \ndebugChildElements()");
-    myScaffoldElement.debugChildElements();
-    */
-
-    debugPrint(" \n$name  _incrementCounter, name=${widget.name}, widget=${widget.hashCode}:${widget.runtimeType.toString()}, _counter=$_counter");
+    debugPrint(" \n_incrementCounter, widget=${widget.hashCode}:${widget.runtimeType.toString()}, _counter=$_counter");
     setState(() {
       _counter++;
     });
@@ -169,43 +133,36 @@ class _MyNavigatorPushPopPageState extends MyState<MyNavigatorPushPopPage> {
 
   @override
   Widget build(BuildContext context) {
-    // MyWidgetを使った、Widget Tree ビルドフローログ出力
-    debugPrint("$name#build(context:${context.hashCode})  instance=${this.hashCode}, widget=${widget.hashCode}:${widget.runtimeType.toString()}");
 
-    return MyScaffold(
-      key: myScaffoldGlobalKey,
-      name: "MyScaffold[#2]",
+    return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
 
-      body: MyContainer(
-        name: "MyContainer[#2]",
+      body: Container(
         alignment: Alignment.center,
-        child: MyColumn(
-          name: "MyColumn[#2]",
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
 
             // ラベル表示部のコンポーネント
-            MyLabelStatelessComponent(name: "[#2]",
+            LabelStatelessComponent(
                 outerColor: Colors.deepOrange, innerColor: Colors.orange),
 
             // カウンター表示部のコンポーネント
-            MyCounterStatelessComponent(name: "[#2]", parameter: _counter,
+            CounterStatelessComponent(
+                parameter: _counter,
                 outerColor: Colors.blue, innerColor: Colors.lightBlue),
 
-            MyRaisedButton(
-              name: "pushMyRaisedButton[#2]",
+            RaisedButton(
               color: Colors.lightGreenAccent,
               onPressed: () {
-                debugPrint(" \nMyNavigatorPushPopPage#2  push to#3");
                 // Navigator．push() 時には、次ページの生成と現ページを含む全ての前ページの再buildが行われます。
                 Navigator.push(
                   context,
                   MaterialPageRoute<void>(
                       builder: (BuildContext context) {
-                        return MyNavigatorPopPage();
+                        return NavigatorPopPage();
                       }
                   ),
                 );
@@ -213,11 +170,9 @@ class _MyNavigatorPushPopPageState extends MyState<MyNavigatorPushPopPage> {
               child: Text("Navigator PUSH to#3"),
             ),
 
-            MyRaisedButton(
-              name: "popMyRaisedButton[#2]",
+            RaisedButton(
               color: Colors.yellowAccent,
               onPressed: () {
-                debugPrint(" \nMyNavigatorPushPopPage#2  pop to#1");
                 // Navigator．pop() 時には、全ての前ページの再buildが行われます。
                 Navigator.pop(context);
               },
@@ -228,8 +183,7 @@ class _MyNavigatorPushPopPageState extends MyState<MyNavigatorPushPopPage> {
         ),
       ),
 
-      floatingActionButton: MyFloatingActionButton(
-        name: "MyFAB[#2]",
+      floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: Icon(Icons.add),
@@ -240,38 +194,25 @@ class _MyNavigatorPushPopPageState extends MyState<MyNavigatorPushPopPage> {
 
 
 /// 第３のページ
-class MyNavigatorPopPage extends MyStatefulWidget {
-  MyNavigatorPopPage({String name, Key key, this.title: "Navigator Page#3"})
-      : super(name: "MyNavigatorPopPage[#3]", key: key);
+class NavigatorPopPage extends StatefulWidget {
+  NavigatorPopPage({Key key, this.title: "Navigator Page#3"})
+      : super(key: key);
 
   final String title;
 
   @override
-  _MyNavigatorPopPageState createState() {
-    debugPrint("$name#createState()  instance=${this.hashCode}");
-    return createStateHolder(
-        _MyNavigatorPopPageState(name: "$name:State"));
+  _NavigatorPopPageState createState() {
+    return _NavigatorPopPageState();
   }
 }
 
-class _MyNavigatorPopPageState extends MyState<MyNavigatorPopPage> {
+class _NavigatorPopPageState extends State<NavigatorPopPage> {
   int _counter = 0;
-  final GlobalKey<MyScaffoldState> myScaffoldGlobalKey = GlobalKey();
-  MyStatefulElement myScaffoldElement;
 
-  _MyNavigatorPopPageState({String name}) : super(name: name);
+  _NavigatorPopPageState() : super();
 
   void _incrementCounter() {
-    /*
-    // Scaffold Elementの全ツリー構造のデバッグ出力
-    if (myScaffoldElement == null) {
-      myScaffoldElement = (myScaffoldGlobalKey.currentWidget as MyScaffold).elementHolder.object;
-    }
-    debugPrint(" \ndebugChildElements()");
-    myScaffoldElement.debugChildElements();
-    */
-
-    debugPrint(" \n$name  _incrementCounter, name=${widget.name}, widget=${widget.hashCode}:${widget.runtimeType.toString()}, _counter=$_counter");
+    debugPrint(" \n_incrementCounter, widget=${widget.hashCode}:${widget.runtimeType.toString()}, _counter=$_counter");
     setState(() {
       _counter++;
     });
@@ -279,37 +220,30 @@ class _MyNavigatorPopPageState extends MyState<MyNavigatorPopPage> {
 
   @override
   Widget build(BuildContext context) {
-    // MyWidgetを使った、Widget Tree ビルドフローログ出力
-    debugPrint("$name#build(context:${context.hashCode})  instance=${this.hashCode}, widget=${widget.hashCode}:${widget.runtimeType.toString()}");
 
-    return MyScaffold(
-      key: myScaffoldGlobalKey,
-      name: "MyScaffold[#3]",
+    return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
 
-      body: MyContainer(
-        name: "MyContainer[#3]",
+      body: Container(
         alignment: Alignment.center,
-        child: MyColumn(
-          name: "MyColumn[#3]",
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
 
             // ラベル表示部のコンポーネント
-            MyLabelStatelessComponent(name: "[#3]",
+            LabelStatelessComponent(
                 outerColor: Colors.deepPurple, innerColor: Colors.purpleAccent),
 
             // カウンター表示部のコンポーネント
-            MyCounterStatelessComponent(name: "[#3]", parameter: _counter,
+            CounterStatelessComponent(
+                parameter: _counter,
                 outerColor: Colors.blue, innerColor: Colors.lightBlue),
 
-            MyRaisedButton(
-              name: "popMyRaisedButton[#3]",
+            RaisedButton(
               color: Colors.yellowAccent,
               onPressed: () {
-                debugPrint(" \nMyNavigatorPopPage#3  pop to#2");
                 // Navigator．pop() 時には、全ての前ページの再buildが行われます。
                 Navigator.pop(context);
               },
@@ -320,8 +254,7 @@ class _MyNavigatorPopPageState extends MyState<MyNavigatorPopPage> {
         ),
       ),
 
-      floatingActionButton: MyFloatingActionButton(
-        name: "MyFAB[#3]",
+      floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: Icon(Icons.add),
@@ -333,41 +266,34 @@ class _MyNavigatorPopPageState extends MyState<MyNavigatorPopPage> {
 
 
 /// ラベル表示部のコンポーネント (StatelessWidget)
-class MyLabelStatelessComponent<T> extends MyStatelessWidget {
+class LabelStatelessComponent<T> extends StatelessWidget {
   final T parameter;
   final Color outerColor;
   final Color innerColor;
-  final String indexLabel;
 
-  MyLabelStatelessComponent({
+  LabelStatelessComponent({
     this.parameter,
     @required this.outerColor,
     @required this.innerColor,
-    String name,
     Key key,
-  }) :  this.indexLabel = name,
-        super(name: "MyLabelComponent$name", key: key);
+  }) :  super(key: key);
 
   Widget build(BuildContext context) {
-    debugPrint("$name#build(context:${context.hashCode})  instance=${this.hashCode}");
 
     return
-      MyContainer(
-        name: "labelOuterMyContainer$indexLabel",
+      Container(
         color: outerColor,
         alignment: Alignment.center,
         margin: EdgeInsets.all(10.0),
         padding: EdgeInsets.all(10.0),
 
-        child: MyContainer(
-          name: "labelMyContainer$indexLabel",
+        child: Container(
           color: innerColor,
           alignment: Alignment.center,
           padding: EdgeInsets.all(20.0),
 
-          child: MyText(
+          child: Text(
             'You have pushed the button this many times:',
-            name: "labelMyText$indexLabel",
           ),
 
         ),
@@ -377,41 +303,34 @@ class MyLabelStatelessComponent<T> extends MyStatelessWidget {
 }
 
 /// カウンター表示部のコンポーネント (StatelessWidget)
-class MyCounterStatelessComponent<T> extends MyStatelessWidget {
+class CounterStatelessComponent<T> extends StatelessWidget {
   final T parameter;
   final Color outerColor;
   final Color innerColor;
-  final String indexLabel;
 
-  MyCounterStatelessComponent({
+  CounterStatelessComponent({
     this.parameter,
     @required this.outerColor,
     @required this.innerColor,
-    String name,
     Key key,
-  }) :  this.indexLabel = name,
-        super(name: "MyCounterComponent$name", key: key);
+  }) :  super(key: key);
 
   Widget build(BuildContext context) {
-    debugPrint("$name#build(context:${context.hashCode})  instance=${this.hashCode}");
 
     return
-      MyContainer(
-        name: "counterOuterMyContainer$indexLabel",
+      Container(
         color: outerColor,
         alignment: Alignment.center,
         margin: EdgeInsets.all(10.0),
         padding: EdgeInsets.all(10.0),
 
-        child: MyContainer(
-          name: "counterMyContainer$indexLabel",
+        child: Container(
           color: innerColor,
           alignment: Alignment.center,
           padding: EdgeInsets.all(10.0),
 
-          child: MyText(
+          child: Text(
             '$parameter',
-            name: "counterMyText$indexLabel",
             style: Theme.of(context).textTheme.display1,
           ),
 
@@ -423,52 +342,43 @@ class MyCounterStatelessComponent<T> extends MyStatelessWidget {
 
 
 /// ラベル表示部のコンポーネント (StatefulWidget)
-class MyLabelStatefulComponent<T> extends MyStatefulWidget {
+class LabelStatefulComponent<T> extends StatefulWidget {
   final T parameter;
   final Color outerColor;
   final Color innerColor;
-  final String indexLabel;
 
-  MyLabelStatefulComponent({
+  LabelStatefulComponent({
     this.parameter,
     @required this.outerColor,
     @required this.innerColor,
-    String name,
     Key key,
-  }) :  this.indexLabel = name,
-        super(name: "MyLabelComponent$name", key: key);
+  }) :  super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    debugPrint("$name#createState()  instance=${this.hashCode}");
-    return createStateHolder(
-        new MyLabelStatefulComponentState(name: "$name:State"));
+    return LabelStatefulComponentState();
   }
 }
-class MyLabelStatefulComponentState extends MyState<MyLabelStatefulComponent> {
+class LabelStatefulComponentState extends State<LabelStatefulComponent> {
 
-  MyLabelStatefulComponentState({String name}) : super(name: name);
+  LabelStatefulComponentState() : super();
 
   Widget build(BuildContext context) {
-    debugPrint("$name#build(context:${context.hashCode})  instance=${this.hashCode}, widget=${widget.hashCode}:${widget.runtimeType.toString()}");
 
     return
-      MyContainer(
-        name: "labelOuterMyContainer${widget.indexLabel}",
+      Container(
         color: widget.outerColor,
         alignment: Alignment.center,
         margin: EdgeInsets.all(10.0),
         padding: EdgeInsets.all(10.0),
 
-        child: MyContainer(
-          name: "labelMyContainer${widget.indexLabel}",
+        child: Container(
           color: widget.innerColor,
           alignment: Alignment.center,
           padding: EdgeInsets.all(20.0),
 
-          child: MyText(
+          child: Text(
             'You have pushed the button this many times:',
-            name: "labelMyText${widget.indexLabel}",
           ),
 
         ),
@@ -478,52 +388,43 @@ class MyLabelStatefulComponentState extends MyState<MyLabelStatefulComponent> {
 }
 
 /// カウンター表示部のコンポーネント (StatefulWidget)
-class MyCounterStatefulComponent<T> extends MyStatefulWidget {
+class CounterStatefulComponent<T> extends StatefulWidget {
   final T parameter;
   final Color outerColor;
   final Color innerColor;
-  final String indexLabel;
 
-  MyCounterStatefulComponent({
+  CounterStatefulComponent({
     this.parameter,
     @required this.outerColor,
     @required this.innerColor,
-    String name,
     Key key,
-  }) :  this.indexLabel = name,
-        super(name: "MyCounterComponent$name", key: key);
+  }) :  super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    debugPrint("$name#createState()  instance=${this.hashCode}");
-    return createStateHolder(
-        new MyCounterStatefulComponentState(name: "$name:State"));
+    return CounterStatefulComponentState();
   }
 }
-class MyCounterStatefulComponentState extends MyState<MyCounterStatefulComponent> {
+class CounterStatefulComponentState extends State<CounterStatefulComponent> {
 
-  MyCounterStatefulComponentState({String name}) : super(name: name);
+  CounterStatefulComponentState() : super();
 
   Widget build(BuildContext context) {
-    debugPrint("$name#build(context:${context.hashCode})  instance=${this.hashCode}, widget=${widget.hashCode}:${widget.runtimeType.toString()}");
 
     return
-      MyContainer(
-        name: "counterOuterMyContainer${widget.indexLabel}",
+      Container(
         color: widget.outerColor,
         alignment: Alignment.center,
         margin: EdgeInsets.all(10.0),
         padding: EdgeInsets.all(10.0),
 
-        child: MyContainer(
-          name: "counterMyContainer${widget.indexLabel}",
+        child: Container(
           color: widget.innerColor,
           alignment: Alignment.center,
           padding: EdgeInsets.all(10.0),
 
-          child: MyText(
+          child: Text(
             '${widget.parameter}',
-            name: "counterMyText${widget.indexLabel}",
             style: Theme.of(context).textTheme.display1,
           ),
 
