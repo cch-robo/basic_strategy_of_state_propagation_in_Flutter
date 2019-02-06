@@ -15,7 +15,7 @@ Flutterのネストが深くならないように気をつけたり、
 
 _初学者が対象ですので、BLOCなど応用技術の説明ではありません。_
 - 基本ウィジェット：InheritedWidget
-- リポジトリの doc ディレクトリにセッション資料の PDF があります。
+- リポジトリの doc ディレクトリに[セッション資料の PDF](doc/basic_strategy_of_state_propagation_in_Flutter.pdf) があります。
 
 ## サンプルアプリについて
 
