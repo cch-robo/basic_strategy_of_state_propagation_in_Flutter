@@ -76,6 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
               ),
 
+/*
               RaisedButton(
                 color: Colors.white,
                 child: Container(child: Text('cacheable widget build'), width: 200),
@@ -83,6 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   cacheable_widget_build.main();
                 },
               ),
+*/
 
               RaisedButton(
                 color: Colors.white,
@@ -92,6 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
               ),
 
+/*
               RaisedButton(
                 color: Colors.white,
                 child: Container(child: Text('move keyless widget'), width: 200),
@@ -115,6 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   use_right_context.main();
                 },
               ),
+*/
 
               RaisedButton(
                 color: Colors.white,
