@@ -27,31 +27,31 @@ Scaffold や Text ウィジェットなどをラップした MyScaffold や MyTe
 - サンプルソース選択画面＆実行画面  
 <img src="doc/sample_app_image.png" width="600px" border="1" />
 
-- normal widget build flow
+- normal widget build flow  
 カウンタアプリに表示や再表示時のビルドフロー・ログ出力を追加したサンプルです。  
 (ログ表示確認用)
 
-- rebuildable widget build
+- rebuildable widget build  
 カウンタアプリにピンポイントで再表示と再表示抑止ができるようにするウィジェットのサンプルです。  
 (ソースコードとログ表示確認用)
 
-- deep nested widget tree
+- deep nested widget tree  
 カウンタアプリをデコってネストを深くしたサンプルです。  
 (ソースコードの確認用)
 
-- build divided by component
+- build divided by component  
 深くなったネストをコンポーネントを作って外出しするサンプルです。  
 (ソースコードの確認用)
 
-- state on page transition
+- state on page transition  
 カウンタアプリに画面遷移を追加しただけのサンプルです。  
 (挙動とソースコードの確認用)
 
-- State Propagation
+- State Propagation  
 InheritedWidgetを使って状態とロジックを外出ししたサンプルです。  
 (挙動とソースコードの確認用)
 
-- lifecycle observer
+- lifecycle observer  
 [Flutter Meetup Tokyo #6](https://flutter-jp.connpass.com/event/105834/)、[Flutter lifecycle ハンドリングの実践](https://docs.google.com/presentation/d/1grxIVw8WmE1LmFKo9Bx8QHuDjJKSL2BBFfvzKwiUuqk/edit) で発表した、ページレベルのライフサイクルを監視できるようにするウィジェットのサンプルです。  
 (ソースコードとログ表示確認用)
 
