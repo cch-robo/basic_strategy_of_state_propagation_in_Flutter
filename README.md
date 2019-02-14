@@ -57,7 +57,5 @@ InheritedWidgetを使って状態とロジックを外出ししたサンプル�
 
 - [proxy_types.dart](https://github.com/cch-robo/basic_strategy_of_state_propagation_in_Flutter/blob/master/lib/src/base/proxy_types.dart)  
 Proxy クラスは、任意のオブジェクトの身代わりとなりソースコードを変更することなく、メソッドの挙動を置き換えたり、メソッド実行前後に横断的関心事を追加できるようにします。  
-オブジェクトのクラス型とProxy型は異なるため、適用するオブジェクトの変数や引数の型を dybnamic にする必要があるので利用はテストやデバッグ時に限定されますが、よろしければ御利用下さい。  
+オブジェクトのクラス型とProxy型は異なるため、適用するオブジェクトの変数や引数の型を dynamic にする必要があるので利用はテストやデバッグ時に限定されますが、よろしければ御利用下さい。  
 使い方については、[proxy_unit_test.dart](https://github.com/cch-robo/basic_strategy_of_state_propagation_in_Flutter/blob/master/test/proxy_unit_test.dart) のテスト実装を御参照ください。
-
-
